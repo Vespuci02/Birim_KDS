@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Mağaza Detay</title>
+  <link rel="stylesheet" href="/public/css/style.css" />
+</head>
+<body>
+  <header class="header">
+    <h1><%= storeName %></h1>
+    <a href="/dashboard">← Dashboard</a>
+
+    <div class="controls">
+      <label>Dönem:</label>
+      <select id="periodSelect">
+        <option value="3m">Son 3 Ay</option>
+        <option value="6m">Son 6 Ay</option>
+        <option value="1y">Son 1 Yıl</option>
+      </select>
+    </div>
+  </header>
+
+  <main class="grid">
+    <section class="card">
+      <h2>Aylık Ciro Trend (Son 1 Yıl)</h2>
+      <canvas id="trendChart" height="120"></canvas>
+    </section>
+
+    <section class="card">
+      <h2>Top 10 Ürün</h2>
+      <table id="productsTable">
+        <thead>
+          <tr>
+            <th>Ürün</th>
+            <th>Adet</th>
+            <th>Ciro</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    window.STORE_ID = "<%= storeId %>";
+  </script>
+  <script src="/public/js/store.js"></script>
+</body>
+</html>

@@ -1,0 +1,213 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Dashboard - BİM DSS</title>
+  <link rel="stylesheet" href="/public/css/style.css" />
+
+  
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+  <header class="header">
+    <img width="10%" src="/public/css/bim_logo.png" alt="bimlogo">
+
+    <div class="controls">
+      <label>Dönem:</label>
+      <select id="periodSelect">
+        <option value="3m">Son 3 Ay</option>
+        <option value="6m">Son 6 Ay</option>
+        <option value="1y">Son 1 Yıl</option>
+      </select>
+    </div>
+  </header>
+
+  <section class="card">
+  <h2>Mağaza Performansı</h2>
+
+  <div class="twoTables">
+    <div>
+      <h3>En Yüksek Ciro Yapan 5 Mağaza</h3>
+      <table id="topTable" class="modernTable">
+        <thead>
+          <tr>
+            <th>Sıra</th>
+            <th>Mağaza</th>
+            <th>Ciro</th>
+            <th>Detay</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <div>
+      <h3>En Düşük Ciro Yapan 5 Mağaza</h3>
+      <table id="bottomTable" class="modernTable">
+        <thead>
+          <tr>
+            <th>Sıra</th>
+            <th>Mağaza</th>
+            <th>Ciro</th>
+            <th>Detay</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+
+    <section class="card">
+      <div class="mapHeaderBar">
+        <div class="mapHeaderLeft">
+          <h2>Mağazalar Haritası</h2>
+        </div>
+
+        <div class="mapHeaderRight">
+          <label class="miniLabel">Mağaza Filtresi</label>
+          <select id="mapFilter">
+            <option value="all" selected>Tümü</option>
+            <option value="top5">En Yüksek 5</option>
+            <option value="bottom5">En Düşük 5</option>
+          </select>
+          <span class="switchLabel">Heatmap</span>
+          <label class="switch">
+            <input type="checkbox" id="heatToggle">
+            <span class="slider"></span>
+          </label>
+
+        </div>
+      </div>
+
+      <div class="mapSplit">
+  
+  <div>
+    <div id="map" class="mapFrame"></div>
+  </div>
+
+  
+  <div class="adPanel">
+    <div class="adPanelHeader">
+      <h3 style="margin:0;">Pazarlama Önerisi</h3>
+
+      <select id="benchPeriod">
+        <option value="3m">Son 3 Ay</option>
+        <option value="6m">Son 6 Ay</option>
+        <option value="1y">Son 1 Yıl</option>
+      </select>
+    </div>
+
+    <p class="hint" style="margin-top:10px;">
+      Haritadan bir mağazaya tıkla. Panel, en yakın 3 mağazanın ortalamasıyla kıyaslayıp öneri üretir.
+    </p>
+
+    <div id="adEmpty" class="adEmpty">
+      Henüz mağaza seçilmedi.
+    </div>
+
+    <div id="adContent" style="display:none;">
+      <div class="adBadgeRow">
+        <span id="adBadge" class="adBadge">-</span>
+        <span id="adStoreName" class="adStoreName">-</span>
+      </div>
+
+      <div class="adStats">
+        <div class="adStat">
+          <div class="adStatLabel">Mağaza Ciro</div>
+          <div class="adStatValue" id="tCiro">-</div>
+        </div>
+        <div class="adStat">
+          <div class="adStatLabel">En Yakın 3 Mağazanın Ort. Ciro</div>
+          <div class="adStatValue" id="avgCiro">-</div>
+        </div>
+        <div class="adStat">
+          <div class="adStatLabel">Mağazanın Bulunduğu Mahallenin Nüfusu</div>
+          <div class="adStatValue" id="tPop">-</div>
+        </div>
+        <div class="adStat">
+          <div class="adStatLabel">En Yakın 3 Mağazanın Ort. Nüfus</div>
+          <div class="adStatValue" id="avgPop">-</div>
+        </div>
+        <div class="adStat">
+          <div class="adStatLabel">Ciro Oranı (Hedef / Ort.)</div>
+          <div class="adStatValue" id="ratio">-</div>
+        </div>
+      </div>
+
+      <p id="adReason" class="adReason"></p>
+
+      <h4 style="margin:12px 0 8px;">En Yakın 3 Mağaza</h4>
+      <table id="adTable">
+        <thead>
+          <tr>
+            <th>Mağaza</th>
+            <th>Mesafe</th>
+            <th>Nüfus</th>
+            <th>Ciro</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+    </section>
+  <section class="card" style="margin-top:16px;">
+  <div class="mapHeaderBar">
+    <div class="mapHeaderLeft">
+      <h2>Yeni Mağaza Kararı (Mahalle Bazlı)</h2>
+    </div>
+    <div class="mapHeaderRight newStoreHeaderRight">
+      <label class="miniLabel">Mahalle Seç</label>
+      <select id="mahalleSelect"></select>
+    </div>
+  </div>
+
+  <div id="newStoreEmpty" class="adEmpty">Bir mahalle seçiniz.</div>
+
+  <div id="newStoreContent" style="display:none;">
+    <div class="adBadgeRow">
+      <span id="newStoreBadge" class="adBadge">-</span>
+      <span id="newStoreMahalle" class="adStoreName">-</span>
+    </div>
+
+    <div class="adStats">
+      <div class="adStat">
+        <div class="adStatLabel">Mahalle Nüfusu</div>
+        <div class="adStatValue" id="nsPop">-</div>
+      </div>
+      <div class="adStat">
+        <div class="adStatLabel">Toplam Ciro (Seçili Dönem)</div>
+        <div class="adStatValue" id="nsCiro">-</div>
+      </div>
+      <div class="adStat">
+        <div class="adStatLabel">Sipariş Sayısı</div>
+        <div class="adStatValue" id="nsOrders">-</div>
+      </div>
+      <div class="adStat">
+        <div class="adStatLabel">En Yakın Mağaza Mesafesi</div>
+        <div class="adStatValue" id="nsDist">-</div>
+      </div>
+      <div class="adStat">
+        <div class="adStatLabel">1500m İçindeki Mağaza Sayısı</div>
+        <div class="adStatValue" id="nsNearCount">-</div>
+      </div>
+    </div>
+
+    <p id="nsReason" class="adReason"></p>
+  </div>
+</section>
+
+    
+  </main>
+
+  
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet.heat/dist/leaflet-heat.js"></script>
+
+  <script src="/public/js/dashboard.js"></script>
+</body>
+</html>
