@@ -1,7 +1,7 @@
 # BIM-DSS
 
 ## Proje Açıklaması
-Bu proje, mağaza/ürün/sipariş verileri üzerinden REST prensiplerine uygun bir API ve katı MVC mimarisi ile geliştirilmiştir.
+BİM marketlerinin Bölge Mağaza Geliştirme sorumlusu müdürlerinin mağazaların performansına göre şube açıp kapama veya pazarlama çalışması yapılması gibi önemli kararları almalarına yardımcı olma.
 
 ## Senaryo
 Sistem; mağazalar (stores), ürünler (products) ve siparişler (orders) kaynakları için CRUD işlemleri sunar.
