@@ -1,7 +1,7 @@
 # BIM-DSS
 
 ## Proje Açıklaması
-BİM marketlerinin Bölge Mağaza Geliştirme sorumlusu müdürlerinin mağazaların performansına göre şube açıp kapama veya pazarlama çalışması yapılması gibi önemli kararları almalarına yardımcı olma.
+Sistem, İşletmelerin, İşletme Geliştirme sorumlusu ekiplerin firma birimlerinin performansına göre birim açma veya kapama ya da pazarlama çalışması yapılması gibi önemli kararları almalarına yardımcı olur.
 
 ## Senaryo
 Sistem; mağazalar (stores), ürünler (products) ve siparişler (orders) kaynakları için CRUD işlemleri sunar.
